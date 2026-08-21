@@ -30,12 +30,22 @@ export default function HomePage() {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Live Visitor Tracker Logic
+  // Bulletproof Live Visitor Tracker Logic
   useEffect(() => {
     fetch("https://api.counterapi.dev/v1/souptik/portfolio")
-      .then((res) => res.json())
-      .then((data) => setViews(data.count))
-      .catch(() => setViews(1402)); // Fallback number if API is slow
+      .then((res) => {
+        if (!res.ok) throw new Error("API error");
+        return res.json();
+      })
+      .then((data) => {
+        // Only set views if the API actually returns a valid number
+        if (data && typeof data.count === 'number') {
+          setViews(data.count);
+        } else {
+          setViews(1402); // Fallback
+        }
+      })
+      .catch(() => setViews(1402)); // Fallback if API fails completely
   }, []);
 
   return (
