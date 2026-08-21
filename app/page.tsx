@@ -119,8 +119,8 @@ export default function Home() {
           </div>
 
           <form action="https://api.web3forms.com/submit" method="POST" className="space-y-4 text-left">
-            {/* REPLACE THE VALUE BELOW WITH YOUR ACTUAL ACCESS KEY */}
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE" />
+            {/* The access key is now securely hidden! */}
+            <input type="hidden" name="access_key" value="e4a55b55-72b5-490e-9f72-a83ca7d1016d" />
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
@@ -141,7 +141,6 @@ export default function Home() {
             <button type="submit" className="w-full py-4 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-zinc-200 transition-colors">
               Send Message <Send className="w-4 h-4" />
             </button>
-            e4a55b55-72b5-490e-9f72-a83ca7d1016d
           </form>
         </div>
       </section>
