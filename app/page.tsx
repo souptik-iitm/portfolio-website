@@ -1,111 +1,48 @@
-"use client";
 import Image from "next/image";
-import React, { useState } from "react";
-import { 
-  Mail, 
-  ArrowRight, 
-  ExternalLink, 
-  Code2, 
-  Layers, 
-  Send, 
-  CheckCircle2,
-  Sparkles,
-  MapPin,
-  Briefcase
-} from "lucide-react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { personalInfo, skills, projects } from "../data/portfolioData";
+import Link from "next/link";
+import { MapPin, Briefcase, Code2, Sparkles, ArrowRight, ExternalLink } from "lucide-react";
+import { personalInfo, projects } from "../data/portfolioData";
 
 export default function Home() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
-    
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        setFormSubmitted(true);
-      }
-    } catch {
-      alert("Something went wrong. Please contact me directly via email.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <main className="min-h-screen bg-[#08080a] text-zinc-100 bg-grid-pattern px-4 sm:px-8 md:px-16 py-8">
+    <main className="min-h-screen p-4 sm:p-8 md:p-12 lg:p-24 max-w-7xl mx-auto space-y-24">
       
-      {/* Navigation */}
-      <header className="sticky top-6 z-50 max-w-5xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md shadow-2xl">
-        <div className="flex items-center gap-2 font-mono text-sm tracking-tight text-zinc-300">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>{personalInfo.name}</span>
-        </div>
-
-        <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-zinc-400">
-          <a href="#about" className="hover:text-white px-3 py-1.5 rounded-full transition hover:bg-zinc-800">About</a>
-          <a href="#projects" className="hover:text-white px-3 py-1.5 rounded-full transition hover:bg-zinc-800">Projects</a>
-          <a href="#skills" className="hover:text-white px-3 py-1.5 rounded-full transition hover:bg-zinc-800">Skills</a>
-          <a href="#contact" className="bg-white text-black px-4 py-1.5 rounded-full font-semibold hover:bg-zinc-200 transition">Contact</a>
-        </nav>
-      </header>
-
       {/* Hero Section */}
-      <section id="about" className="max-w-5xl mx-auto pt-20 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-8 flex flex-col gap-6">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              {personalInfo.status}
-            </span>
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 sm:pt-12">
+        
+        {/* Left Content */}
+        <div className="lg:col-span-8 space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-sm text-zinc-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Open to Collaborations & Projects
           </div>
-
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-white">
-            Hi, I&apos;m {personalInfo.name}. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-500">
-              {personalInfo.roleHeadline}
-            </span>
+          
+          <h1 className="text-5xl sm:text-7xl font-bold tracking-tight text-zinc-100">
+            Hi, I'm {personalInfo.name}.
           </h1>
-
-          <p className="text-zinc-400 max-w-xl text-base sm:text-lg leading-relaxed">
+          
+          <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 pb-2">
+            Data Science & AI<br />Systems Enthusiast
+          </h2>
+          
+          <p className="text-lg text-zinc-400 max-w-2xl leading-relaxed">
             {personalInfo.bio}
           </p>
-
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <a 
-              href="#contact" 
-              className="inline-flex items-center gap-2 bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-zinc-200 transition text-sm shadow-lg shadow-white/5"
-            >
+          
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <Link href="#contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition">
               Get in Touch <ArrowRight className="w-4 h-4" />
-            </a>
-            <div className="flex items-center gap-3 px-3 py-2 rounded-full border border-zinc-800 bg-zinc-900/60 text-zinc-400">
-              <a href={personalInfo.socials.github} target="_blank" rel="noreferrer" className="hover:text-white transition p-1">
-                <FaGithub className="w-5 h-5" />
-              </a>
-              <a href={personalInfo.socials.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition p-1">
-                <FaLinkedin className="w-5 h-5" />
-              </a>
-              <a href={personalInfo.socials.twitter} target="_blank" rel="noreferrer" className="hover:text-white transition p-1">
-                <FaTwitter className="w-5 h-5" />
-              </a>
-              <a href={`mailto:${personalInfo.socials.email}`} className="hover:text-white transition p-1">
-                <Mail className="w-5 h-5" />
-              </a>
+            </Link>
+            
+            <div className="flex items-center gap-4 px-6 py-3 rounded-full bg-zinc-900 border border-zinc-800">
+              <a href={personalInfo.socials.github} target="_blank" rel="noreferrer" className="text-sm font-medium text-zinc-400 hover:text-white transition">GitHub</a>
+              <a href={personalInfo.socials.linkedin} target="_blank" rel="noreferrer" className="text-sm font-medium text-zinc-400 hover:text-white transition">LinkedIn</a>
+              <a href={`mailto:${personalInfo.socials.email}`} className="text-sm font-medium text-zinc-400 hover:text-white transition">Email</a>
             </div>
           </div>
         </div>
 
-{/* Profile Card */}
+        {/* Profile Card (Right Side) */}
         <div className="lg:col-span-4 flex justify-center">
           <div className="relative w-64 h-64 sm:w-72 sm:h-72">
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple-600/30 via-indigo-500/20 to-transparent blur-2xl opacity-50"></div>
@@ -115,10 +52,85 @@ export default function Home() {
                 <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-zinc-700/60 shadow-lg shrink-0">
                   <Image 
                     src="/profile.png" 
-                    alt="Souptik Pramanik" 
+                    alt={personalInfo.name} 
                     fill 
                     className="object-cover" 
                     sizes="64px" 
                     priority 
                   />
                 </div>
+                <div className="text-right">
+                  <div className="text-xs text-zinc-500 font-mono">LOCATION</div>
+                  <div className="text-sm font-semibold flex items-center gap-1 justify-end text-zinc-200">
+                    <MapPin className="w-3.5 h-3.5 text-rose-400" /> {personalInfo.location}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="text-xs font-mono text-zinc-500">FOCUS</div>
+                <div className="text-base font-semibold text-white">Data Science & Software</div>
+                <div className="text-xs text-zinc-400 mt-1">Building intelligent algorithms and clean web apps.</div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bento Stats Row */}
+      <section className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="glass-card p-5 rounded-2xl">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-purple-400"><Briefcase className="w-5 h-5" /></div>
+            <div className="font-semibold text-zinc-200">Core Stack</div>
+          </div>
+          <div className="text-sm text-zinc-400">Python, TS & Modern Web</div>
+        </div>
+        <div className="glass-card p-5 rounded-2xl">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-blue-400"><Code2 className="w-5 h-5" /></div>
+            <div className="font-semibold text-zinc-200">Architecture</div>
+          </div>
+          <div className="text-sm text-zinc-400">Modular & Scalable</div>
+        </div>
+        <div className="glass-card p-5 rounded-2xl">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-emerald-400"><Sparkles className="w-5 h-5" /></div>
+            <div className="font-semibold text-zinc-200">Design Aesthetic</div>
+          </div>
+          <div className="text-sm text-zinc-400">Modern Dark Bento</div>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
+      <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-bold text-zinc-100">Featured Projects</h3>
+          <p className="text-zinc-400 mt-1">A showcase of software systems, tools, and technical experiments.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {projects.map((project, index) => (
+            <div key={index} className="glass-card p-6 rounded-3xl flex flex-col justify-between group hover:border-zinc-600 transition">
+              <div>
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-xl font-bold text-zinc-100 group-hover:text-purple-400 transition">{project.title}</h4>
+                  <a href={project.githubUrl} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white"><ExternalLink className="w-5 h-5" /></a>
+                </div>
+                <p className="text-zinc-400 text-sm mb-6 leading-relaxed">{project.description}</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tech, i) => (
+                  <span key={i} className="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </main>
+  );
+}
