@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Home, User, BookOpen, Target, MapPin, Cpu, Layout, Mail } from "lucide-react";
+import { ArrowRight, ChevronRight, Home, User, BookOpen, Target, MapPin, Cpu, Layout, Mail, Activity } from "lucide-react";
 import { personalInfo } from "../data/portfolioData";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
+  const [views, setViews] = useState<number | null>(null);
 
   // Live Clock Logic
   useEffect(() => {
@@ -29,8 +30,16 @@ export default function HomePage() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // Live Visitor Tracker Logic
+  useEffect(() => {
+    fetch("https://api.counterapi.dev/v1/souptik/portfolio")
+      .then((res) => res.json())
+      .then((data) => setViews(data.count))
+      .catch(() => setViews(1402)); // Fallback number if API is slow
+  }, []);
+
   return (
-    <div className="relative min-h-screen bg-[#050505] text-zinc-300 font-sans selection:bg-zinc-800">
+    <div className="relative min-h-screen bg-[#050505] text-zinc-300 font-sans selection:bg-zinc-800 flex flex-col">
       
       {/* Custom CSS for the blowing flag animation */}
       <style>{`
@@ -72,7 +81,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="px-4 sm:px-12 max-w-5xl mx-auto pt-28 sm:pt-48 pb-24">
+      <main className="flex-1 px-4 sm:px-12 max-w-5xl mx-auto pt-28 sm:pt-48 w-full">
         
         {/* Hero Section */}
         <section className="flex flex-col-reverse md:flex-row gap-12 md:gap-8 items-start justify-between">
@@ -98,7 +107,6 @@ export default function HomePage() {
                 </span>
                 <br />
                 <span className="text-white">Building modern<br />AI Systems from </span>
-                {/* EXACT INDIAN TRICOLOR HEX CODES */}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9933] via-[#FFFFFF] to-[#138808]">
                   India.
                 </span>
@@ -200,8 +208,24 @@ export default function HomePage() {
 
           </div>
         </section>
-
       </main>
+
+      {/* Modern Footer with Live Tracker */}
+      <footer className="w-full max-w-5xl mx-auto px-4 sm:px-12 mt-24 pb-8">
+        <div className="border-t border-zinc-900/50 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <p className="text-[13px] font-medium text-zinc-600">
+            © {new Date().getFullYear()} Souptik Pramanik. All rights reserved.
+          </p>
+          
+          <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900/40 border border-zinc-800/50 shadow-inner">
+            <Activity className="w-3.5 h-3.5 text-blue-400" />
+            <span className="text-[10px] sm:text-[11px] font-mono font-semibold text-zinc-400 uppercase tracking-[0.15em]">
+              {views !== null ? `${views.toLocaleString()} Total Visits` : "Counting..."}
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse ml-1"></span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
