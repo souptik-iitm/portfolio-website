@@ -1,9 +1,34 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronRight, Home, User, BookOpen, Target, MapPin, Cpu, Layout, Mail } from "lucide-react";
 import { personalInfo } from "../data/portfolioData";
 
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false);
+  const [time, setTime] = useState("");
+
+  // Live Clock Logic
+  useEffect(() => {
+    setMounted(true);
+    const updateTime = () => {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      setTime(`${formatter.format(now)} IST`);
+    };
+
+    updateTime();
+    const intervalId = setInterval(updateTime, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[#050505] text-zinc-300 font-sans selection:bg-zinc-800">
       
@@ -41,7 +66,10 @@ export default function HomePage() {
           </Link>
         </nav>
 
-        <div className="text-xs font-mono text-zinc-500 hidden md:block">17:20 IST</div>
+        {/* Dynamic Live Clock */}
+        <div className="text-xs font-mono text-zinc-500 hidden md:block">
+          {mounted ? time : "Loading..."}
+        </div>
       </header>
 
       <main className="px-6 sm:px-12 max-w-5xl mx-auto pt-32 sm:pt-48 pb-24">
