@@ -1,48 +1,35 @@
 export const personalInfo = {
-  name: "Souptik",
-  roleHeadline: "Data Science & AI Systems Enthusiast",
+  name: "Souptik Pramanik",
   location: "India",
-  status: "Open to Collaborations & Projects",
-  bio: "Exploring algorithms, machine learning pipelines, and modern web applications. Passionate about transforming data into practical digital experiences.",
+  bio: "I am a Data Science and AI student currently pursuing the IIT Madras BS program. I specialize in building intelligent algorithms, local development automation, and robust web applications using Python and modern web technologies. When I am away from my terminal, you can usually find me propagating my Adenium and Jade plants or experimenting with new stir-fry recipes in the kitchen!",
   socials: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
-    email: "souptik@example.com"
+    github: "https://github.com/souptik-iitm",
+    linkedin: "https://linkedin.com/in/yourprofile",
+    twitter: "https://twitter.com/yourprofile",
+    email: "your-email@example.com"
   }
 };
 
-export const skills = [
-  "Python",
-  "Data Science & ML",
-  "NumPy & Pandas",
-  "Next.js & React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Git & GitHub",
-  "Data Structures & Algorithms"
-];
-
 export const projects = [
   {
-    title: "AI Analytics Pipeline",
-    description: "End-to-end data processing workflow for automated model analysis and reporting.",
-    tags: ["Python", "Pandas", "Machine Learning"],
-    liveUrl: "#",
-    githubUrl: "https://github.com"
+    title: "📊 Automated Analytics Pipeline",
+    description: "An end-to-end data processing workflow built to analyze and visualize complex datasets efficiently.",
+    tags: ["Python", "Pandas", "Jupyter"],
+    githubUrl: "https://github.com/souptik-iitm",
+    readTime: "4 min read"
   },
   {
-    title: "Modern Bento Portfolio",
-    description: "High-performance dark mode website with responsive bento-box layout and direct messaging.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    liveUrl: "#",
-    githubUrl: "https://github.com"
+    title: "⚡ Local Dev Environment Automator",
+    description: "Custom scripts and configurations to benchmark terminal efficiency and organize project directories instantly.",
+    tags: ["Zsh", "Bash", "Automation"],
+    githubUrl: "https://github.com/souptik-iitm",
+    readTime: "3 min read"
   },
   {
-    title: "Distributed Task System",
-    description: "Scalable backend tool managing background tasks and data processing with high efficiency.",
-    tags: ["Python", "APIs", "Data Structures"],
-    liveUrl: "#",
-    githubUrl: "https://github.com"
+    title: "🧠 Predictive ML Model",
+    description: "A machine learning application designed to clean data and run predictive statistical analyses.",
+    tags: ["Scikit-Learn", "NumPy", "Data Science"],
+    githubUrl: "https://github.com/souptik-iitm",
+    readTime: "5 min read"
   }
 ];
